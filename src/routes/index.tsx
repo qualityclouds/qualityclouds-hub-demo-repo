@@ -1,0 +1,25 @@
+import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { useAuth } from "@/lib/auth-context";
+import { AppShell } from "@/components/AppShell";
+import { MyClaimsPage } from "@/features/MyClaimsPage";
+
+export const Route = createFileRoute("/")({
+  component: Index,
+});
+
+function Index() {
+  const { user, loading } = useAuth();
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
+  }
+  if (!user) return <Navigate to="/auth" replace />;
+  return (
+    <AppShell>
+      <MyClaimsPage />
+    </AppShell>
+  );
+}

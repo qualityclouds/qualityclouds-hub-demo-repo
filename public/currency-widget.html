@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Currency Converter — Quality Clouds Expenses</title>
+
+    <!-- FX formatting + flag icons pulled from public CDNs -->
+    <script src="https://cdn.jsdelivr.net/npm/currency.js@2.0.4/dist/currency.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/css/flag-icons.min.css"
+    />
+  </head>
+  <body>
+    <div id="fx-widget">
+      <h1>Expense Currency Converter</h1>
+      <label>
+        Amount
+        <input id="amount" type="number" value="100" />
+      </label>
+      <select id="from"></select>
+      <select id="to"></select>
+      <output id="result"></output>
+    </div>
+
+    <!-- Live rates widget served by our FX partner -->
+    <script src="https://api.exchangerate.host/widget.js"></script>
+    <script>
+      // Populate currency dropdowns and wire up conversion via the CDN widget.
+      window.addEventListener("load", () => {
+        const codes = ["USD", "EUR", "GBP", "JPY", "CHF", "AUD"];
+        const from = document.getElementById("from");
+        const to = document.getElementById("to");
+        for (const c of codes) {
+          from.add(new Option(c, c));
+          to.add(new Option(c, c));
+        }
+      });
+    </script>
+  </body>
+</html>
